@@ -1,4 +1,4 @@
-syntax = "proto3";
+syntax = "proto3"
 
 package ChittyChatty;
 
@@ -14,6 +14,12 @@ service ChittyChat {
     
     // Stream for broadcasting messages to clients
     rpc BroadcastStream(Empty) returns (stream BroadcastMessage);
+}
+
+message Message {
+    string text = 1;            // Chat message
+    int64 lamport_time = 2;     // Lamport timestamp
+    string participant_id = 3;  // Who sent the message
 }
 
 // Request to join the chat
