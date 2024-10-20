@@ -1,8 +1,6 @@
 syntax = "proto3";
 
-package ChittyChatty;
-
-option go_package = "mandact3.go/grpc/ChittyChatty";
+option go_package = "../grpc";
 
 service ChittyChat {
     // Join the chat

@@ -4,7 +4,7 @@
 // - protoc             v5.28.2
 // source: ChittyChatty.proto
 
-package ChittyChatty
+package grpc
 
 import (
 	context "context"
@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ChittyChat_Join_FullMethodName            = "/ChittyChatty.ChittyChat/Join"
-	ChittyChat_Leave_FullMethodName           = "/ChittyChatty.ChittyChat/Leave"
-	ChittyChat_Publish_FullMethodName         = "/ChittyChatty.ChittyChat/Publish"
-	ChittyChat_BroadcastStream_FullMethodName = "/ChittyChatty.ChittyChat/BroadcastStream"
+	ChittyChat_Join_FullMethodName            = "/ChittyChat/Join"
+	ChittyChat_Leave_FullMethodName           = "/ChittyChat/Leave"
+	ChittyChat_Publish_FullMethodName         = "/ChittyChat/Publish"
+	ChittyChat_BroadcastStream_FullMethodName = "/ChittyChat/BroadcastStream"
 )
 
 // ChittyChatClient is the client API for ChittyChat service.
@@ -220,7 +220,7 @@ type ChittyChat_BroadcastStreamServer = grpc.ServerStreamingServer[BroadcastMess
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ChittyChat_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "ChittyChatty.ChittyChat",
+	ServiceName: "ChittyChat",
 	HandlerType: (*ChittyChatServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
