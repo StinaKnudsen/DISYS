@@ -1,4 +1,4 @@
-module mandact3.go
+module chittyServer
 
 go 1.23.0
 
