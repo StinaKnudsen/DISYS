@@ -75,7 +75,7 @@ func (s *server) Leave(context context.Context, req *proto.LeaveRequest) (*proto
 	}
 
 	return &proto.LeaveResponse{
-		GoodbyeMessage:   "You left Chitty-Chat at: ",
+		GoodbyeMessage:   " left Chitty-Chat at: ",
 		LogicalTimestamp: s.lamportClock,
 	}, nil
 }
