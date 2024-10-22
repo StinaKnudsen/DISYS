@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 
 	//ChittyChatty "mandact3.go/grpc"
-	"chittyServer/grpc/ChittyChatty"
+	ChittyChatty "chittyServer/grpc"
 )
 
 func main() {

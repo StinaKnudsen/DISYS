@@ -5,8 +5,9 @@ import (
 	"log"
 	"net"
 
+	ChittyChatty "chittyServer/grpc"
+
 	"google.golang.org/grpc"
-	"mandact3.go/grpc/mandact3.go/grpc/ChittyChatty"
 )
 
 type databaseServer struct {
