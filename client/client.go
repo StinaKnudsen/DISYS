@@ -9,13 +9,13 @@ import (
 )
 
 func main() {
-	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+	conn, err := grpc.NewClient("localhost:50051", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
 
-	client := proto.NewChittyChatServiceClient(conn)
+	client := proto.NewChittyChattyServiceClient(conn)
 
 	joinResp, err := client.Join(context.Background(), &proto.JoinRequest{ParticipantId: "client1"})
 	if err != nil {

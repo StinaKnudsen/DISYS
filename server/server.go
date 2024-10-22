@@ -9,7 +9,7 @@ import (
 )
 
 type server struct {
-	proto.UnimplementedChittyChatServiceServer
+	proto.UnimplementedChittyChattyServiceServer
 	// Unfinished
 }
 
@@ -22,7 +22,7 @@ func main() {
 	}
 
 	grpcServer := grpc.NewServer()
-	proto.RegisterChittyChatServiceServer(grpcServer, &server{})
+	proto.RegisterChittyChattyServiceServer(grpcServer, &server{})
 
 	log.Printf("Server listening at %v", lis.Addr())
 	if err := grpcServer.Serve(lis); err != nil {
