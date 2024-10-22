@@ -29,7 +29,6 @@ func main() {
 		participants: make(map[string]proto.ChittyChattyService_ListenToMessagesServer),
 	})
 
-	log.Printf("Server listening at %v", lis.Addr())
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
