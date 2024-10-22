@@ -25,7 +25,9 @@ func main() {
 	}
 
 	grpcServer := grpc.NewServer()
-	proto.RegisterChittyChattyServiceServer(grpcServer, &server{})
+	proto.RegisterChittyChattyServiceServer(grpcServer, &server{
+		participants: make(map[string]proto.ChittyChattyService_ListenToMessagesServer),
+	})
 
 	log.Printf("Server listening at %v", lis.Addr())
 	if err := grpcServer.Serve(lis); err != nil {
