@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option go_package = "ChittyServer/grpc/proto";
+
+package ChittyChatty;
+
+import "google/protobuf/timestamp.proto";
+
+service ChittyChattyService {
+    rpc PublishMessage (ChatMessageRequest) returns (PublishResponse);
+
+    rpc BroadcastMessage (BroadcastMessageRequest) returns (BroadcastResponse);
+
+    rpc Join (JoinRequest) returns (JoinResponse);
+  
+    rpc Leave (LeaveRequest) returns (LeaveResponse);
+  
+    rpc ListenToMessages (ListenRequest) returns (stream BroadcastMessageRequest);
+}
+
+message ChatMessageRequest {
+  string participant_id = 1;       
+  string message = 2;              
+  int64 logical_timestamp = 3; 
+}
+
+message PublishResponse {
+  bool success = 1;
+}
+
+message BroadcastMessageRequest {
+  string participant_id = 1;       
+  string message = 2;              
+  int64 logical_timestamp = 3;     
+}
+
+message BroadcastResponse {
+  bool success = 1;
+}
+
+message JoinRequest {
+  string participant_id = 1;      
+}
+
+message JoinResponse {
+  string welcome_message = 1;
+  int64 logical_timestamp = 2;
+}
+
+message LeaveRequest {
+  string participant_id = 1;
+}
+
+message LeaveResponse {
+  string goodbye_message = 1;
+  int64 logical_timestamp = 2;
+}
+
+message ListenRequest {
+  string participant_id = 1; 
+}
