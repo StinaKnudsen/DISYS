@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "ChittyServer/grpc/proto";
+option go_package = "../grpc";
 
 package ChittyChatty;
 
