@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"strings"
-	"time"
 
 	"google.golang.org/grpc"
 )
@@ -26,13 +25,18 @@ func main() {
 	participantId, _ := reader.ReadString('\n')
 	participantId = strings.TrimSpace(participantId)
 
-	joinResp, err := client.Join(context.Background(), &proto.JoinRequest{ParticipantId: participantId})
+	localLamport := int64(0)
+
+	joinResp, err := client.Join(context.Background(), &proto.JoinRequest{
+		ParticipantId:    participantId,
+		LogicalTimestamp: localLamport,
+	})
 	if err != nil {
 		log.Fatalf("Join failed: %v", err)
 	}
 	log.Printf("Join response: %s %d", joinResp.WelcomeMessage, joinResp.LogicalTimestamp)
 
-	go ListenForMessages(client, participantId)
+	go ListenForMessages(client, participantId, &localLamport)
 
 	for {
 		log.Print("Enter a message or type 'exit' to leave :))")
@@ -45,14 +49,16 @@ func main() {
 		}
 
 		if message == "exit" {
-			leaveChat(client, participantId)
+			leaveChat(client, participantId, &localLamport)
 			break
 		}
+
+		localLamport++
 
 		publishResp, err := client.PublishMessage(context.Background(), &proto.ChatMessageRequest{
 			ParticipantId:    participantId,
 			Message:          message,
-			LogicalTimestamp: time.Now().Unix(), // CHANGE TO LAMPORT FOR REAL
+			LogicalTimestamp: localLamport,
 		})
 		if err != nil {
 			log.Printf("failed to publish message")
@@ -62,7 +68,7 @@ func main() {
 	}
 }
 
-func ListenForMessages(client proto.ChittyChattyServiceClient, paticipantId string) {
+func ListenForMessages(client proto.ChittyChattyServiceClient, paticipantId string, localLamport *int64) {
 
 	stream, err := client.ListenToMessages(context.Background(), &proto.ListenRequest{
 		ParticipantId: paticipantId,
@@ -77,17 +83,19 @@ func ListenForMessages(client proto.ChittyChattyServiceClient, paticipantId stri
 			log.Fatalf("error receiving message")
 		}
 		log.Printf("(Message from %s at Lamport time %d): %s", message.ParticipantId, message.LogicalTimestamp, message.Message)
+
+		*localLamport = max(*localLamport, message.LogicalTimestamp) + 1
 	}
 }
 
-func leaveChat(client proto.ChittyChattyServiceClient, participantId string) {
+func leaveChat(client proto.ChittyChattyServiceClient, participantId string, localLamport *int64) {
 	leaveResp, err := client.Leave(context.Background(), &proto.LeaveRequest{
-		ParticipantId: participantId,
+		ParticipantId:    participantId,
+		LogicalTimestamp: *localLamport,
 	})
 	if err != nil {
-		log.Fatal("failed to leave chat :()")
+		log.Fatal("failed to leave chat :(")
 	}
 
 	log.Printf("%s %s %d", participantId, leaveResp.GoodbyeMessage, leaveResp.LogicalTimestamp)
-
 }

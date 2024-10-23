@@ -27,8 +27,10 @@ func main() {
 	grpcServer := grpc.NewServer()
 	proto.RegisterChittyChattyServiceServer(grpcServer, &server{
 		participants: make(map[string]proto.ChittyChattyService_ListenToMessagesServer),
+		lamportClock: 0,
 	})
 
+	log.Printf("Server is now active and listening at %v", lis.Addr())
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
@@ -36,13 +38,13 @@ func main() {
 
 func (s *server) Join(context context.Context, req *proto.JoinRequest) (*proto.JoinResponse, error) {
 
-	s.incrementLamport(s.lamportClock)
+	s.incrementLamport(req.LogicalTimestamp)
 
 	for id, stream := range s.participants {
 		if id != req.ParticipantId {
 			broadcastMessage := &proto.BroadcastMessageRequest{
 				ParticipantId:    req.ParticipantId,
-				Message:          "joined Chitty-Chat at Lamport time: ",
+				Message:          "-- joined Chitty-Chat :D --",
 				LogicalTimestamp: s.lamportClock,
 			}
 			if err := stream.Send(broadcastMessage); err != nil {
@@ -59,14 +61,14 @@ func (s *server) Join(context context.Context, req *proto.JoinRequest) (*proto.J
 
 func (s *server) Leave(context context.Context, req *proto.LeaveRequest) (*proto.LeaveResponse, error) {
 
-	s.incrementLamport(s.lamportClock)
+	s.incrementLamport(req.LogicalTimestamp)
 	delete(s.participants, req.ParticipantId)
 
 	for id, stream := range s.participants {
 		if id != req.ParticipantId {
 			broadcastMessage := &proto.BroadcastMessageRequest{
 				ParticipantId:    req.ParticipantId,
-				Message:          "left Chitty-Chat at Lamport time: ",
+				Message:          "-- left Chitty-Chat ;(( --",
 				LogicalTimestamp: s.lamportClock,
 			}
 			if err := stream.Send(broadcastMessage); err != nil {

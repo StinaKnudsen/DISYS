@@ -4,8 +4,6 @@ option go_package = "../grpc";
 
 package ChittyChatty;
 
-import "google/protobuf/timestamp.proto";
-
 service ChittyChattyService {
     rpc PublishMessage (ChatMessageRequest) returns (PublishResponse);
 
@@ -39,7 +37,8 @@ message BroadcastResponse {
 }
 
 message JoinRequest {
-  string participant_id = 1;      
+  string participant_id = 1;    
+  int64 logical_timestamp = 2;  
 }
 
 message JoinResponse {
@@ -49,6 +48,7 @@ message JoinResponse {
 
 message LeaveRequest {
   string participant_id = 1;
+  int64 logical_timestamp = 2;
 }
 
 message LeaveResponse {
