@@ -49,11 +49,11 @@ func main() {
 		}
 
 		if message == "exit" {
-			leaveChat(client, participantId, &localLamport)
+			leaveChat(client, participantId, localLamport)
 			break
 		}
 
-		localLamport++
+		//localLamport++
 
 		publishResp, err := client.PublishMessage(context.Background(), &proto.ChatMessageRequest{
 			ParticipantId:    participantId,
@@ -63,7 +63,7 @@ func main() {
 		if err != nil {
 			log.Printf("failed to publish message")
 		} else if publishResp.Success {
-			log.Println("You have succesfully published a message ;)")
+			log.Println("You have succesfully published the message ;)")
 		}
 	}
 }
@@ -84,14 +84,18 @@ func ListenForMessages(client proto.ChittyChattyServiceClient, paticipantId stri
 		}
 		log.Printf("(Message from %s at Lamport time %d): %s", message.ParticipantId, message.LogicalTimestamp, message.Message)
 
-		*localLamport = max(*localLamport, message.LogicalTimestamp) + 1
+		// keeping 'em synced
+		if message.LogicalTimestamp > *localLamport {
+			*localLamport = message.LogicalTimestamp
+		}
+		*localLamport++
 	}
 }
 
-func leaveChat(client proto.ChittyChattyServiceClient, participantId string, localLamport *int64) {
+func leaveChat(client proto.ChittyChattyServiceClient, participantId string, localLamport int64) {
 	leaveResp, err := client.Leave(context.Background(), &proto.LeaveRequest{
 		ParticipantId:    participantId,
-		LogicalTimestamp: *localLamport,
+		LogicalTimestamp: localLamport,
 	})
 	if err != nil {
 		log.Fatal("failed to leave chat :(")
