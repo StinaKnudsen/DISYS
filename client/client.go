@@ -53,7 +53,7 @@ func main() {
 			break
 		}
 
-		//localLamport++
+		localLamport++
 
 		publishResp, err := client.PublishMessage(context.Background(), &proto.ChatMessageRequest{
 			ParticipantId:    participantId,
@@ -63,7 +63,7 @@ func main() {
 		if err != nil {
 			log.Printf("failed to publish message")
 		} else if publishResp.Success {
-			log.Println("You have succesfully published the message ;)")
+			log.Printf("You have succesfully published the message at lamport time %d ;)", localLamport)
 		}
 	}
 }
