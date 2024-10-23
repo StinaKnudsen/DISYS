@@ -39,6 +39,11 @@ func main() {
 		message, _ := reader.ReadString('\n')
 		message = strings.TrimSpace(message)
 
+		if len(message) > 128 {
+			log.Println("Message exceeds the maximum length of 128 characters ;()")
+			continue
+		}
+
 		if message == "exit" {
 			leaveChat(client, participantId)
 			break

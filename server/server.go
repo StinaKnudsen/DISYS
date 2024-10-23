@@ -111,7 +111,7 @@ func (s *server) ListenToMessages(req *proto.ListenRequest, stream proto.ChittyC
 	return nil
 }
 
-// Functions relating to Lamport clock
+// Function relating to Lamport clock
 func (s *server) increment() {
 	s.mutex.Lock()
 	s.lamportClock++
