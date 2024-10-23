@@ -34,6 +34,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("Join failed: %v", err)
 	}
+	// Sycing with server
+	localLamport = joinResp.LogicalTimestamp
+
 	log.Printf("Join response: %s %d", joinResp.WelcomeMessage, joinResp.LogicalTimestamp)
 
 	go ListenForMessages(client, participantId, &localLamport)
@@ -52,8 +55,6 @@ func main() {
 			leaveChat(client, participantId, localLamport)
 			break
 		}
-
-		localLamport++
 
 		publishResp, err := client.PublishMessage(context.Background(), &proto.ChatMessageRequest{
 			ParticipantId:    participantId,

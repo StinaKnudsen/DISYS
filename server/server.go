@@ -132,15 +132,16 @@ func (s *server) ListenToMessages(req *proto.ListenRequest, stream proto.ChittyC
 	return nil
 }
 
-// Function relating to Lamport clock
+// Function related to Lamport clock
 func (s *server) incrementLamport(clientTimestamp int64) {
+
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
-	// Update the server's Lamport clock if the client's timestamp is greater
+	// Keeping it real
 	if clientTimestamp > s.lamportClock {
 		s.lamportClock = clientTimestamp
 	}
-	// Always increment the Lamport clock
+
 	s.lamportClock++
 }

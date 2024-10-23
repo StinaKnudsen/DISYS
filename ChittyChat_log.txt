@@ -1,13 +1,16 @@
-2024/10/23 23:42:09 Server is now active and listening at [::]:50051
-2024/10/23 23:42:17 L: Participant alb joined Chitty-Chat at Lamport time 1
-2024/10/23 23:42:21 L: Participant alb published message at Lamport time 2: "lets goo?"
-2024/10/23 23:43:04 L: Participant ole joined Chitty-Chat at Lamport time 3
-2024/10/23 23:43:12 L: Participant ole published message at Lamport time 4: "now the new client"
-2024/10/23 23:43:27 L: Participant alb published message at Lamport time 6: "what will happen now"
-2024/10/23 23:43:43 L: Participant ole published message at Lamport time 8: "damn it is still happening"
-2024/10/23 23:44:09 L: Participant alb published message at Lamport time 10: "but now it is only off by one and not two"
-2024/10/23 23:44:20 L: Participant alb published message at Lamport time 12: "and still if I switch client"
-2024/10/23 23:44:26 L: Participant alb published message at Lamport time 14: "oh"
-2024/10/23 23:44:28 L: Participant alb published message at Lamport time 16: "no"
-2024/10/23 23:44:37 L: Participant ole published message at Lamport time 18: "it is all the time now"
-2024/10/23 23:44:45 L: Participant ole published message at Lamport time 20: "maybe server mechanic?"
+2024/10/24 00:15:48 Server is now active and listening at [::]:50051
+2024/10/24 00:15:53 L: Participant alb joined Chitty-Chat at Lamport time 1
+2024/10/24 00:16:02 L: Participant alb published message at Lamport time 2: "is it doing the working"
+2024/10/24 00:16:13 L: Participant ole joined Chitty-Chat at Lamport time 3
+2024/10/24 00:16:27 L: Participant ole published message at Lamport time 4: "omg I think it is doing the working"
+2024/10/24 00:16:38 L: Participant alb published message at Lamport time 5: "whaaat crazy"
+2024/10/24 00:16:51 L: Participant stik joined Chitty-Chat at Lamport time 6
+2024/10/24 00:17:00 L: Participant stik published message at Lamport time 7: "buuut what about a third?"
+2024/10/24 00:17:07 L: Participant ole published message at Lamport time 8: "THEN IT STILL WORKS"
+2024/10/24 00:17:14 L: Participant alb published message at Lamport time 9: "whaaat"
+2024/10/24 00:17:20 L: Participant alb published message at Lamport time 10: "peace out"
+2024/10/24 00:17:28 L: Participant alb left Chitty-Chat at Lamport time 11
+2024/10/24 00:17:39 L: Participant ole published message at Lamport time 12: "bye bye"
+2024/10/24 00:17:44 L: Participant ole left Chitty-Chat at Lamport time 13
+2024/10/24 00:17:54 L: Participant stik published message at Lamport time 14: "then I will also go yes yes"
+2024/10/24 00:17:58 L: Participant stik left Chitty-Chat at Lamport time 15
