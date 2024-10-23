@@ -63,7 +63,7 @@ func main() {
 		if err != nil {
 			log.Printf("failed to publish message")
 		} else if publishResp.Success {
-			log.Printf("You have succesfully published the message at lamport time %d ;)", localLamport)
+			log.Println("You have succesfully published the message ^^^ ")
 		}
 	}
 }
@@ -82,13 +82,12 @@ func ListenForMessages(client proto.ChittyChattyServiceClient, paticipantId stri
 		if err != nil {
 			log.Fatalf("error receiving message")
 		}
-		log.Printf("(Message from %s at Lamport time %d): %s", message.ParticipantId, message.LogicalTimestamp, message.Message)
 
 		// keeping 'em synced
 		if message.LogicalTimestamp > *localLamport {
 			*localLamport = message.LogicalTimestamp
 		}
-		*localLamport++
+		log.Printf("(Message from %s at Lamport time %d): %s", message.ParticipantId, message.LogicalTimestamp, message.Message)
 	}
 }
 

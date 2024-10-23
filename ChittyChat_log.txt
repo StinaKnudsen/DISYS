@@ -1,9 +1,13 @@
-2024/10/23 22:47:58 Server is now active and listening at [::]:50051
-2024/10/23 22:48:08 L: Participant ALb joined Chitty-Chat at Lamport time 1
-2024/10/23 22:48:18 L: Participant ole joined Chitty-Chat at Lamport time 2
-2024/10/23 22:48:25 L: Participant ole published message at Lamport time 3: "What's up?"
-2024/10/23 22:48:57 L: Participant ALb published message at Lamport time 6: "Hello there"
-2024/10/23 22:49:06 L: Participant stik joined Chitty-Chat at Lamport time 7
-2024/10/23 22:49:23 L: Participant ALb published message at Lamport time 10: "hello stik :)"
-2024/10/23 22:49:31 L: Participant ole published message at Lamport time 13: "heeellloooo Stik"
-2024/10/23 22:49:39 L: Participant stik published message at Lamport time 16: "Hi everyone!"
+2024/10/23 23:42:09 Server is now active and listening at [::]:50051
+2024/10/23 23:42:17 L: Participant alb joined Chitty-Chat at Lamport time 1
+2024/10/23 23:42:21 L: Participant alb published message at Lamport time 2: "lets goo?"
+2024/10/23 23:43:04 L: Participant ole joined Chitty-Chat at Lamport time 3
+2024/10/23 23:43:12 L: Participant ole published message at Lamport time 4: "now the new client"
+2024/10/23 23:43:27 L: Participant alb published message at Lamport time 6: "what will happen now"
+2024/10/23 23:43:43 L: Participant ole published message at Lamport time 8: "damn it is still happening"
+2024/10/23 23:44:09 L: Participant alb published message at Lamport time 10: "but now it is only off by one and not two"
+2024/10/23 23:44:20 L: Participant alb published message at Lamport time 12: "and still if I switch client"
+2024/10/23 23:44:26 L: Participant alb published message at Lamport time 14: "oh"
+2024/10/23 23:44:28 L: Participant alb published message at Lamport time 16: "no"
+2024/10/23 23:44:37 L: Participant ole published message at Lamport time 18: "it is all the time now"
+2024/10/23 23:44:45 L: Participant ole published message at Lamport time 20: "maybe server mechanic?"

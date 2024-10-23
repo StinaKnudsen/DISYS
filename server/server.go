@@ -21,6 +21,7 @@ type server struct {
 // Our main <33
 func main() {
 
+	// https://stackoverflow.com/questions/19965795/how-to-write-log-to-file
 	file, err := os.OpenFile("ChittyChat_log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
 	if err != nil {
 		log.Fatalf("failed to open log file: %v", err)
@@ -106,16 +107,16 @@ func (s *server) PublishMessage(context context.Context, req *proto.ChatMessageR
 	log.Printf("L: Participant %s published message at Lamport time %d: \"%s\"", req.ParticipantId, s.lamportClock, req.Message)
 
 	for id, stream := range s.participants {
-		if id != req.ParticipantId {
-			broadcastMessage := &proto.BroadcastMessageRequest{
-				ParticipantId:    req.ParticipantId,
-				Message:          req.Message,
-				LogicalTimestamp: s.lamportClock,
-			}
-			if err := stream.Send(broadcastMessage); err != nil {
-				log.Printf("failed to publish message to %s", id)
-			}
+		//if id != req.ParticipantId {
+		broadcastMessage := &proto.BroadcastMessageRequest{
+			ParticipantId:    req.ParticipantId,
+			Message:          req.Message,
+			LogicalTimestamp: s.lamportClock,
 		}
+		if err := stream.Send(broadcastMessage); err != nil {
+			log.Printf("failed to publish message to %s", id)
+		}
+		//}
 	}
 
 	return &proto.PublishResponse{Success: true}, nil
