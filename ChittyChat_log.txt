@@ -1,0 +1,9 @@
+2024/10/23 22:47:58 Server is now active and listening at [::]:50051
+2024/10/23 22:48:08 L: Participant ALb joined Chitty-Chat at Lamport time 1
+2024/10/23 22:48:18 L: Participant ole joined Chitty-Chat at Lamport time 2
+2024/10/23 22:48:25 L: Participant ole published message at Lamport time 3: "What's up?"
+2024/10/23 22:48:57 L: Participant ALb published message at Lamport time 6: "Hello there"
+2024/10/23 22:49:06 L: Participant stik joined Chitty-Chat at Lamport time 7
+2024/10/23 22:49:23 L: Participant ALb published message at Lamport time 10: "hello stik :)"
+2024/10/23 22:49:31 L: Participant ole published message at Lamport time 13: "heeellloooo Stik"
+2024/10/23 22:49:39 L: Participant stik published message at Lamport time 16: "Hi everyone!"

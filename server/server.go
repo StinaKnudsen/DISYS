@@ -4,6 +4,7 @@ import (
 	proto "ChittyServer/grpc"
 	"log"
 	"net"
+	"os"
 	"sync"
 
 	"golang.org/x/net/context"
@@ -19,6 +20,16 @@ type server struct {
 
 // Our main <33
 func main() {
+
+	file, err := os.OpenFile("ChittyChat_log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
+	if err != nil {
+		log.Fatalf("failed to open log file: %v", err)
+	}
+	defer file.Close()
+
+	// Writing das file, jaaa
+	log.SetOutput(file)
+
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
@@ -39,6 +50,8 @@ func main() {
 func (s *server) Join(context context.Context, req *proto.JoinRequest) (*proto.JoinResponse, error) {
 
 	s.incrementLamport(req.LogicalTimestamp)
+
+	log.Printf("L: Participant %s joined Chitty-Chat at Lamport time %d", req.ParticipantId, s.lamportClock)
 
 	for id, stream := range s.participants {
 		if id != req.ParticipantId {
@@ -62,6 +75,9 @@ func (s *server) Join(context context.Context, req *proto.JoinRequest) (*proto.J
 func (s *server) Leave(context context.Context, req *proto.LeaveRequest) (*proto.LeaveResponse, error) {
 
 	s.incrementLamport(req.LogicalTimestamp)
+
+	log.Printf("L: Participant %s left Chitty-Chat at Lamport time %d", req.ParticipantId, s.lamportClock)
+
 	delete(s.participants, req.ParticipantId)
 
 	for id, stream := range s.participants {
@@ -86,6 +102,8 @@ func (s *server) Leave(context context.Context, req *proto.LeaveRequest) (*proto
 func (s *server) PublishMessage(context context.Context, req *proto.ChatMessageRequest) (*proto.PublishResponse, error) {
 
 	s.incrementLamport(req.LogicalTimestamp)
+
+	log.Printf("L: Participant %s published message at Lamport time %d: \"%s\"", req.ParticipantId, s.lamportClock, req.Message)
 
 	for id, stream := range s.participants {
 		if id != req.ParticipantId {
