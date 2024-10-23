@@ -30,7 +30,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Join failed: %v", err)
 	}
-	log.Printf("Join response: %s", joinResp.WelcomeMessage)
+	log.Printf("Join response: %s %d", joinResp.WelcomeMessage, joinResp.LogicalTimestamp)
 
 	go ListenForMessages(client, participantId)
 

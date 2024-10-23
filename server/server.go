@@ -36,7 +36,7 @@ func main() {
 
 func (s *server) Join(context context.Context, req *proto.JoinRequest) (*proto.JoinResponse, error) {
 
-	s.increment()
+	s.incrementLamport(s.lamportClock)
 
 	for id, stream := range s.participants {
 		if id != req.ParticipantId {
@@ -59,7 +59,7 @@ func (s *server) Join(context context.Context, req *proto.JoinRequest) (*proto.J
 
 func (s *server) Leave(context context.Context, req *proto.LeaveRequest) (*proto.LeaveResponse, error) {
 
-	s.increment()
+	s.incrementLamport(s.lamportClock)
 	delete(s.participants, req.ParticipantId)
 
 	for id, stream := range s.participants {
@@ -83,7 +83,7 @@ func (s *server) Leave(context context.Context, req *proto.LeaveRequest) (*proto
 
 func (s *server) PublishMessage(context context.Context, req *proto.ChatMessageRequest) (*proto.PublishResponse, error) {
 
-	s.increment()
+	s.incrementLamport(req.LogicalTimestamp)
 
 	for id, stream := range s.participants {
 		if id != req.ParticipantId {
@@ -112,8 +112,14 @@ func (s *server) ListenToMessages(req *proto.ListenRequest, stream proto.ChittyC
 }
 
 // Function relating to Lamport clock
-func (s *server) increment() {
+func (s *server) incrementLamport(clientTimestamp int64) {
 	s.mutex.Lock()
+	defer s.mutex.Unlock()
+
+	// Update the server's Lamport clock if the client's timestamp is greater
+	if clientTimestamp > s.lamportClock {
+		s.lamportClock = clientTimestamp
+	}
+	// Always increment the Lamport clock
 	s.lamportClock++
-	s.mutex.Unlock()
 }
