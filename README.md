@@ -7,10 +7,12 @@ Once you have opened the program, you should be at the root of this repository.
 The instructions assume you start at the root.
 
 1. Step is to get the server up and running
+- open a terminal
 - cd server
 - go run server.go
 
 2. Step is to set up at client/participant
+- open a new terminal
 - cd client
 - go run client.go
 
